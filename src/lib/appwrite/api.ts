@@ -135,7 +135,7 @@ export async function createPost(post: INewPost) {
     // Convert tags into array
     const tags = post.tags?.replace(/ /g, "").split(",") || [];
 
-    // Create post
+    // Save post to database
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -177,7 +177,7 @@ export async function uploadFile(file: File) {
 }
 
 // ============================== GET FILE URL
-export function getFilePreview(fileId: string) {
+export async function getFilePreview(fileId: string) {
   try {
     const fileUrl = storage.getFilePreview(
       appwriteConfig.storageId,
