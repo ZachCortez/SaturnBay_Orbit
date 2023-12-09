@@ -544,3 +544,53 @@ export async function updateUser(user: IUpdateUser) {
     console.log(error);
   }
 }
+
+// // ============================== FOLLOW USER
+// export async function followUser(userId: string, followerId: string) {
+//   try {
+//     const followRecord = await databases.createDocument(
+//       appwriteConfig.databaseId,
+//       appwriteConfig.followsCollectionId,
+//       ID.unique(),
+//       {
+//         user: userId,
+//         follower: followerId,
+//       }
+//     );
+
+//     return followRecord;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// // ============================== UNFOLLOW USER
+// export async function unfollowUser(userId: string, followerId: string) {
+//   try {
+//     const follows = await databases.listDocuments(
+//       appwriteConfig.databaseId,
+//       appwriteConfig.followsCollectionId,
+//       [
+//         Query.equal("user", userId),
+//         Query.equal("follower", followerId),
+//       ]
+//     );
+
+//     if (follows && follows.documents.length > 0) {
+//       const followRecordId = follows.documents[0].$id;
+//       const statusCode = await databases.deleteDocument(
+//         appwriteConfig.databaseId,
+//         appwriteConfig.followsCollectionId,
+//         followRecordId
+//       );
+
+//       if (!statusCode) {
+//         throw Error;
+//       }
+//     }
+
+//     return { status: "Ok" };
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }

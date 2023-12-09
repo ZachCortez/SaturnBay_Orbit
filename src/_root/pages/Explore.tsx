@@ -7,6 +7,7 @@ import { useGetPosts, useSearchPosts } from '@/lib/react-query/queriesAndMutatio
 import { useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
+
 const Explore = () => {
   const { ref, inView } = useInView();
   const {data: posts, fetchNextPage, hasNextPage } = useGetPosts();
@@ -17,8 +18,9 @@ const Explore = () => {
   useSearchPosts(debounceValue)
 // ---Infinite Scrolling--- //
   useEffect(() => {
-    if(inView && !searchValue) fetchNextPage();
-  },[inView, searchValue])
+    if(inView && !searchValue) {fetchNextPage();
+    }
+  },[fetchNextPage, inView, searchValue]);
 // ------------------------//
   if(!posts) {
     return(
@@ -29,8 +31,7 @@ const Explore = () => {
   }
 
   const shouldShowSearchResults = searchValue !=='';
-  const shouldShowPosts = !shouldShowSearchResults && posts.pages.every
-  ((item) => item.documents.length ===0)
+  const shouldShowPosts = !shouldShowSearchResults && posts.pages.every((item) => item?.documents.length === 0)
 
   return (
     <div className="explore-container">
@@ -69,16 +70,17 @@ const Explore = () => {
 
       <div className="flex flex-wrap gap-9 w-full max-w-5xl">
       {shouldShowSearchResults ? (
-        <SearchResults
-        isSearchFetching={isSearchFetching}
-        searchedPosts={searchedPosts}
-        />
-      ) : shouldShowPosts ? (
-        <p className="text-light-4 mt-10 text-center w-full">End of posts
-        </p>
-      ) : posts.pages.map((item, index) => (
-        <GridPostList key={`page-${index}`} posts={item.documents} />
-      ))}
+          <SearchResults
+            isSearchFetching={isSearchFetching}
+            searchedPosts={searchedPosts}
+          />
+        ) : shouldShowPosts ? (
+          <p className="text-light-4 mt-10 text-center w-full">End of posts</p>
+        ) : (
+          posts.pages.map((item, index) => (
+            <GridPostList key={`page-${index}`} posts={item?.documents} />
+          ))
+        )}
       </div>
 
       {hasNextPage && !searchValue && (

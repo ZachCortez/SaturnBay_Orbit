@@ -1,4 +1,5 @@
 import * as z from "zod";
+import Loader from "@/components/shared/Loader"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,7 +22,7 @@ import ProfileUploader from "@/components/shared/ProfileUploader";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/shared/Loader";
+
 
 
 
